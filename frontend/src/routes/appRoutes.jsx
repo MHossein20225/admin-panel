@@ -1,5 +1,5 @@
 import {createBrowserRouter} from "react-router";
 
-const routes = createBrowserRouter([
+export const routes = createBrowserRouter([
     { path: '/', element: null},
 ])

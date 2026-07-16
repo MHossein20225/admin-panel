@@ -1,0 +1,13 @@
+<svg display="block" role="presentation" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 0 0 L 0 20 L 2 19 L 4 20 L 6 19 L 8 20 L 10 19 L 12 20 L 14 19 L 16 20 L 16 0 L 14 1 L 12 0 L 10 1 L 8 0 L 6 1 L 4 0 L 2 1 Z"
+          fill="transparent" height="20px" id="nDXln4b8w" stroke-dasharray="" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="var(--js9iwy, 2)" stroke="var(--1m973uw, rgb(0,0,0))"
+          transform="translate(4 2)" width="16px"></path>
+    <path d="M 8 0 L 2 0 C 0.895 0 0 0.895 0 2 C 0 3.105 0.895 4 2 4 L 6 4 C 7.105 4 8 4.895 8 6 C 8 7.105 7.105 8 6 8 L 0 8"
+          fill="transparent" height="8px" id="ehRxDQXMd" stroke-dasharray="" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="var(--js9iwy, 2)" stroke="var(--1m973uw, rgb(0,0,0))"
+          transform="translate(8 8)" width="8px"></path>
+    <path d="M 0 11 L 0 0" fill="transparent" height="11px" id="wgAeHZOwm" stroke-dasharray="" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="var(--js9iwy, 2)" stroke="var(--1m973uw, rgb(0,0,0))"
+          transform="translate(12 6.5)" width="1px"></path>
+</svg>

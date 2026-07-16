@@ -1,0 +1,18 @@
+<svg display="block" role="presentation" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 14 6 L 14 4 C 14 1.791 12.209 0 10 0 L 4 0 C 1.791 0 0 1.791 0 4 L 0 6" fill="transparent" height="6px"
+          id="d7j1E4q3I" stroke-dasharray="" stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="var(--js9iwy, 2)" stroke="var(--1m973uw, rgb(0,0,0))" transform="translate(2 15)"
+          width="14px"></path>
+    <path d="M 0 0 C 1.764 0.457 2.996 2.049 2.996 3.872 C 2.996 5.695 1.764 7.287 0 7.744" fill="transparent"
+          height="7.744px" id="KbBEY0ePJ" stroke-dasharray="" stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="var(--js9iwy, 2)" stroke="var(--1m973uw, rgb(0,0,0))" transform="translate(16 3.128)"
+          width="2.9961992229530807px"></path>
+    <path d="M 3 5.87 L 3 3.87 C 2.999 2.047 1.765 0.456 0 0" fill="transparent" height="5.870000000000001px"
+          id="lNurVRALF" stroke-dasharray="" stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="var(--js9iwy, 2)" stroke="var(--1m973uw, rgb(0,0,0))" transform="translate(19 15.13)"
+          width="3px"></path>
+    <path d="M 0 4 C 0 1.791 1.791 0 4 0 C 6.209 0 8 1.791 8 4 C 8 6.209 6.209 8 4 8 C 1.791 8 0 6.209 0 4 Z"
+          fill="transparent" height="8px" id="c5Y0LHs80" stroke-dasharray="" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="var(--js9iwy, 2)" stroke="var(--1m973uw, rgb(0,0,0))"
+          transform="translate(5 3)" width="8px"></path>
+</svg>

@@ -1,9 +1,11 @@
 @import "tailwindcss";
 :root {
   --bg-primary : #EEF8F7;
-  --bg-secondary : #0F8F88;
+  --bg-secondary : #F8FAFC;
+  --bg : #0F8F88;
   --text : #53606F;
-  --bg-btn : #111827;
+  --bg-button : #111827;
+  --border-color : #E6EAF0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,5 +19,8 @@ body{
   padding: 0;
   box-sizing: border-box;
   direction: rtl;
+  font-family: Vazirmatn, sans-serif;
+  font-weight: 700;
+  background: var(--bg-secondary);
 }
 

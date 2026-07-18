@@ -6,6 +6,7 @@
   --text : #53606F;
   --bg-button : #111827;
   --border-color : #E6EAF0;
+  --color-white : #FFFFFF;
 }
 
 @media (prefers-color-scheme: dark) {

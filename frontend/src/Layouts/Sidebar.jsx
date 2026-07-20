@@ -1,31 +1,37 @@
 import { useState, useEffect } from 'react';
 import mainIcon from '../assets/icons/mainIcon.svg';
 import { DashboardIcon, OrderIcon, ProductIcon, UserIcon } from "../assets/icons/IconComponents.jsx";
+import {useNavigate} from "react-router";
 
+const menuItems = [
+    {icon: DashboardIcon, label: 'داشبورد', slug: 'dashboard'},
+    {icon: OrderIcon, label: 'سفارشات', slug: 'orders'},
+    {icon: ProductIcon, label: 'محصولات', slug: 'products'},
+    {icon: UserIcon, label: 'مشتری ها', slug: 'customers'},
+];
 export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 969);
-    const [activeItem, setActiveItem] = useState(1); // با state ساده بجای useLocation
+    const Navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
             const mobile = window.innerWidth < 969;
             setIsMobile(mobile);
-            if (!mobile) {
-                setIsOpen(false);
-                document.body.style.overflow = '';
-            }
+            if (!mobile) setIsOpen(false);
         };
 
         handleResize();
         window.addEventListener('resize', handleResize);
+
         return () => {
             window.removeEventListener('resize', handleResize);
-            document.body.style.overflow = '';
         };
     }, []);
 
     useEffect(() => {
+        document.body.style.overflow = (isMobile && isOpen) ? 'hidden' : '';
+
         if (isMobile && isOpen) {
             document.body.style.overflow = 'hidden';
         } else {
@@ -33,29 +39,13 @@ export default function Sidebar() {
         }
     }, [isOpen, isMobile]);
 
-    useEffect(() => {
-        const handleEscape = (e) => {
-            if (e.key === 'Escape') setIsOpen(false);
-        };
-        document.addEventListener('keydown', handleEscape);
-        return () => document.removeEventListener('keydown', handleEscape);
-    }, []);
 
-    const handleNavClick = (id) => {
-        setActiveItem(id);
-        if (isMobile) setIsOpen(false);
-    };
-
-    const menuItems = [
-        { id: 1, icon: DashboardIcon, label: 'داشبورد' },
-        { id: 2, icon: OrderIcon, label: 'سفارشات' },
-        { id: 3, icon: ProductIcon, label: 'محصولات' },
-        { id: 4, icon: UserIcon, label: 'مشتری ها' },
-    ];
+    function handleNavClick(slug) {
+        Navigate(`/${slug}`);
+    }
 
     return (
         <>
-            {/* Hamburger Button */}
             {isMobile && (
                 <button
                     onClick={() => setIsOpen(!isOpen)}
@@ -78,7 +68,6 @@ export default function Sidebar() {
                 </button>
             )}
 
-            {/* Overlay */}
             {isMobile && (
                 <div
                     className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
@@ -88,19 +77,17 @@ export default function Sidebar() {
                 />
             )}
 
-            {/* Sidebar */}
             <aside
                 className={`
-          w-72 min-h-screen bg-white flex flex-col border-l border-(--border-color)
-          transition-all duration-300 ease-in-out
-          ${isMobile
-                    ? 'fixed top-0 right-0 z-40 shadow-2xl'
-                    : 'relative'
-                }
-          ${isMobile && !isOpen ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'}
-        `}
+                    w-72 min-h-screen bg-white flex flex-col border-l border-(--border-color)
+                    transition-all duration-300 ease-in-out
+                    ${isMobile 
+                        ? 'fixed top-0 right-0 z-40 shadow-2xl'
+                        : 'relative'
+                    }
+                    ${isMobile && !isOpen ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'}
+                `}
             >
-                {/* Header */}
                 <div className="flex items-center gap-3 p-6 border-b border-(--border-color)">
                     <div className="w-12 h-12 rounded-lg bg-(--bg) flex items-center justify-center shrink-0">
                         <img className="size-8" src={mainIcon} alt="لوگو" />
@@ -111,28 +98,14 @@ export default function Sidebar() {
                     </div>
                 </div>
 
-                {/* Navigation */}
                 <nav className="flex-1 p-4 space-y-1">
-                    {menuItems.map(({ id, icon: Icon, label }) => (
+                    {menuItems.map(({icon: Icon, label, slug}) => (
                         <button
-                            key={id}
-                            onClick={() => handleNavClick(id)}
-                            className={`
-                w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
-                ${activeItem === id
-                                ? 'bg-(--bg) text-white'
-                                : 'text-(--text) hover:bg-(--bg) hover:text-white'
-                            }
-              `}
+                            onClick={() => handleNavClick(slug)}
+                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-(--bg)`}
                         >
                             <Icon size={18} color="currentColor" strokeWidth={2} />
                             <span className="font-medium">{label}</span>
-
-                            {activeItem === id && (
-                                <svg className="mr-auto size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                </svg>
-                            )}
                         </button>
                     ))}
                 </nav>

@@ -1,54 +1,54 @@
-import {Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
+// Register ChartJS components
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
-export default function WeeklySalesChart () {
-
+const WeeklySalesChart = () => {
     const chartData = {
         labels: ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'],
         datasets: [
             {
                 label: 'درآمد (میلیون تومان)',
-                data: [12, 19, 15, 25, 22, 30, 1],
+                data: [12, 19, 15, 25, 22, 30, 28],
+                backgroundColor: 'rgba(15, 143, 136, 0.8)',
                 borderColor: '#0F8F88',
-                backgroundColor: 'rgba(15, 143, 136, 0.1)',
-                borderWidth: 2,
-                tension: 0.4,
-                fill: true,
-                pointBackgroundColor: '#0F8F88',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointRadius: 4,
-                pointHoverRadius: 6,
+                borderWidth: 1,
+                borderRadius: 8,
+                borderSkipped: false,
             },
             {
                 label: 'سفارشات',
                 data: [45, 52, 49, 60, 55, 70, 65],
+                backgroundColor: 'rgba(59, 130, 246, 0.8)',
                 borderColor: '#3B82F6',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                borderWidth: 2,
-                tension: 0.4,
-                fill: true,
-                pointBackgroundColor: '#3B82F6',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointRadius: 4,
-                pointHoverRadius: 6,
+                borderWidth: 1,
+                borderRadius: 8,
+                borderSkipped: false,
             },
             {
                 label: 'بازگشت کالا',
                 data: [3, 5, 4, 8, 6, 7, 5],
+                backgroundColor: 'rgba(239, 68, 68, 0.8)',
                 borderColor: '#EF4444',
-                backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                borderWidth: 2,
-                tension: 0.4,
-                fill: true,
-                pointBackgroundColor: '#EF4444',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointRadius: 4,
-                pointHoverRadius: 6,
+                borderWidth: 1,
+                borderRadius: 8,
+                borderSkipped: false,
             },
         ],
     };
@@ -79,7 +79,6 @@ export default function WeeklySalesChart () {
                 bodyColor: '#F1F5F9',
                 padding: 12,
                 cornerRadius: 8,
-                displayColors: true,
                 titleFont: {
                     family: 'IRANSans, Vazirmatn, sans-serif',
                     size: 14,
@@ -132,7 +131,9 @@ export default function WeeklySalesChart () {
 
     return (
         <div className="w-full h-full min-h-75">
-            <Line data={chartData} options={options} />
+            <Bar data={chartData} options={options} />
         </div>
     );
 };
+
+export default WeeklySalesChart;

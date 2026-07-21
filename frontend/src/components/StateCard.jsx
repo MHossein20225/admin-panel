@@ -1,4 +1,4 @@
-import {FormatPrice} from "../utilities/HelperFunctions.jsx";
+import {formatPrice} from "../utilities/HelperFunctions.jsx";
 export default function StateCard({ title, value, icon: Icon }){
     return (
         <div className="w-full sm:w-[calc(50%-1rem)] lg:w-72 h-52 bg-(--color-white) border border-(--border-color) rounded-2xl p-4">
@@ -9,7 +9,7 @@ export default function StateCard({ title, value, icon: Icon }){
                 </div>
             </div>
             <div className="mt-5">
-                <p className="text-3xl sm:text-4xl">{FormatPrice(value)}</p>
+                <p className="text-3xl sm:text-4xl">{formatPrice(value)}</p>
             </div>
         </div>
     );

@@ -2,6 +2,11 @@ import {AddProductIcon, SearchIcon} from "../assets/icons/IconComponents.jsx";
 import noProductImage from "../assets/Images/Products/noProductImage.jpg";
 import ProductCard from "../components/ProductCard.jsx";
 import ProductTable from "../components/ProductTable.jsx";
+import {formatPrice} from "../utilities/HelperFunctions.jsx";
+import {Form} from "react-router-dom";
+import {useState} from "react";
+import AddProductForm from "../features/products/AddProductForm.jsx";
+import Modal from "../components/ui/Modal.jsx";
 
 const PRODUCT_DATA = [
     {
@@ -66,6 +71,7 @@ const PRODUCT_DATA = [
     },
 ];
 export default function Product() {
+    const [openAddProductSection, setOpenAddProductSection] = useState(false);
     return (
         <div className="flex flex-col items-center w-full h-auto">
             <div className="bg-(--bg-secondary) w-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row items-start justify-between gap-4 h-32">
@@ -83,6 +89,7 @@ export default function Product() {
                         className="flex items-center justify-center gap-2 border border-(--border-color) rounded-xl bg-black hover:bg-gray-800 transition-colors duration-200
                                    size-10 sm:size-auto sm:px-5 sm:py-2.5"
                         aria-label="افزودن محصول"
+                        onClick={() => setOpenAddProductSection(!openAddProductSection)}
                     >
                         <AddProductIcon size={20} color="white" strokeWidth={2}/>
                         <span className="text-white text-sm hidden md:block">افزودن محصول</span>
@@ -99,6 +106,17 @@ export default function Product() {
                     </div>
                 </div>
             </div>
+
+
+            <Modal
+                OnOpen={openAddProductSection}
+                onClose={() => setOpenAddProductSection(false)}
+                title="افزودن محصول"
+                description="اطلاعات محصول جدید را وارد کنید."
+            >
+                <AddProductForm />
+            </Modal>
+
 
             <div className="w-full p-4">
                 <div className="w-32 h-8 border border-(--border-color)) rounded-2xl">

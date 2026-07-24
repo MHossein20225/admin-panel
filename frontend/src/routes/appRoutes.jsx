@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router";
+import {createBrowserRouter} from "react-router-dom";
 import Sidebar from "../Layouts/Sidebar.jsx";
 import MainLayout from "../Layouts/MainLayout.jsx";
 import Dashboard from "../pages/Dashboard.jsx";

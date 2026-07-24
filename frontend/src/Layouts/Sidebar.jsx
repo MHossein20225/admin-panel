@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import mainIcon from '../assets/icons/mainIcon.svg';
 import { DashboardIcon, OrderIcon, ProductIcon, UserIcon } from "../assets/icons/IconComponents.jsx";
-import {useNavigate} from "react-router";
+import {useNavigate} from "react-router-dom";
 
 const menuItems = [
     {icon: DashboardIcon, label: 'داشبورد', slug: 'dashboard'},

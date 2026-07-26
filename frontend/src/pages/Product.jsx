@@ -1,9 +1,6 @@
 import {AddProductIcon, SearchIcon} from "../assets/icons/IconComponents.jsx";
 import noProductImage from "../assets/Images/Products/noProductImage.jpg";
-import ProductCard from "../components/ProductCard.jsx";
 import ProductTable from "../components/ProductTable.jsx";
-import {formatPrice} from "../utilities/HelperFunctions.jsx";
-import {Form} from "react-router-dom";
 import {useState} from "react";
 import AddProductForm from "../features/products/AddProductForm.jsx";
 import Modal from "../components/ui/Modal.jsx";
@@ -109,7 +106,7 @@ export default function Product() {
 
 
             <Modal
-                OnOpen={openAddProductSection}
+                onOpen={openAddProductSection}
                 onClose={() => setOpenAddProductSection(false)}
                 title="افزودن محصول"
                 description="اطلاعات محصول جدید را وارد کنید."

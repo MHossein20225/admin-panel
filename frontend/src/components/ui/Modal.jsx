@@ -1,6 +1,6 @@
-export default function Modal({title, description, OnOpen, onClose, children,}) {
+export default function Modal({title, description, onOpen, onClose, children}) {
 
-    if (!OnOpen) return null;
+    if (!onOpen) return null;
 
     return (
         <div

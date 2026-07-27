@@ -3,6 +3,7 @@ import {DeleteIcon, EditIcon} from "../assets/icons/IconComponents.jsx";
 import {useState} from "react";
 import Modal from "./ui/Modal.jsx";
 import EditProductForm from "../features/products/EditProductForm.jsx";
+import noProductImage from "../assets/Images/Products/noProductImage.jpg"
 
 export default function ProductTable({data}) {
     const [modalState, setModalState] = useState({
@@ -41,7 +42,7 @@ export default function ProductTable({data}) {
                             <td className="p-3 sm:p-4">
                                 <div className="flex items-center gap-3">
                                     <img
-                                        src={product.image}
+                                        src={noProductImage}
                                         alt={product.name}
                                         className="size-8 sm:size-10 rounded-lg object-cover"
                                     />

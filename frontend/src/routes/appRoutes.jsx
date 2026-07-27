@@ -1,14 +1,15 @@
 import {createBrowserRouter} from "react-router-dom";
-import Sidebar from "../Layouts/Sidebar.jsx";
 import MainLayout from "../Layouts/MainLayout.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
-import Product from "../pages/Product.jsx";
+import Product, {action as productAction} from "../pages/Product.jsx";
 import Customer from "../pages/Customer.jsx";
 
 export const routes = createBrowserRouter([
-    { path: '/', element: <MainLayout/>, children: [
+    {
+        path: '/', element: <MainLayout/>, children: [
             {index: true, element: <Dashboard/>},
-            {path: '/products', element: <Product/>},
+            {path: '/products', element: <Product/>, action: productAction},
             {path: '/customers', element: <Customer/>}
-    ]}
+        ]
+    }
 ])

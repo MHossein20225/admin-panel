@@ -1,16 +1,20 @@
 import {formatPrice} from "../utilities/HelperFunctions.jsx";
 
-export default function CustomerTable({data}){
+export default function CustomerTable({data}) {
     return (
         <table className="w-full">
             <thead>
             <tr className="bg-(--bg-secondary) border-b border-(--border-color)">
                 <th className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary)">#</th>
                 <th className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary)">نام مشتری</th>
-                <th className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary) hidden sm:table-cell">شماره تماس</th>
+                <th className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary) hidden sm:table-cell">شماره
+                    تماس
+                </th>
                 <th className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary) hidden md:table-cell">ایمیل</th>
                 <th className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary)">سفارشات</th>
-                <th className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary) hidden lg:table-cell">مجموع خرید</th>
+                <th className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary) hidden lg:table-cell">مجموع
+                    خرید
+                </th>
                 <th className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary)">وضعیت</th>
             </tr>
             </thead>

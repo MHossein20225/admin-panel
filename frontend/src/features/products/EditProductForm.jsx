@@ -1,10 +1,10 @@
-import { Form } from "react-router-dom";
+import {Form} from "react-router-dom";
 
 export default function EditProductForm({id, title, description, price, off, category, stock, onClose}) {
     console.log(title)
     return (
         <Form method="post" className="space-y-5">
-            <input type="hidden" name="id" value={id} />
+            <input type="hidden" name="id" value={id}/>
 
             <div>
                 <label className="mb-2 block text-sm font-medium text-(--text)">
@@ -66,15 +66,12 @@ export default function EditProductForm({id, title, description, price, off, cat
                     <label className="mb-2 block text-sm font-medium text-(--text)">
                         دسته‌بندی
                     </label>
-                    <select
-                        defaultValue={category}
-                        name="category"
-                        className="w-full rounded-xl border border-(--border-color) px-4 py-3 outline-none focus:border-blue-500 transition"
-                    >
-                        <option value="تی‌شرت">تی‌شرت</option>
-                        <option value="شلوار">شلوار</option>
-                        <option value="هودی">هودی</option>
-                        <option value="کاپشن">کاپشن</option>
+                    <select defaultValue={category} name="category"
+                            className="w-full rounded-xl border border-(--border-color) px-4 py-3 outline-none focus:border-blue-500 transition">
+                        <option value="عطر و ادکلن">عطر و ادکلن</option>
+                        <option value="مراقبت پوست">مراقبت پوست</option>
+                        <option value="مراقبت مو">مراقبت مو</option>
+                        <option value="لوازم آرایشی">لوازم آرایشی</option>
                     </select>
                 </div>
 
@@ -100,11 +97,8 @@ export default function EditProductForm({id, title, description, price, off, cat
                     type="file"
                     name="image"
                     accept="image/*"
-                    className="w-full rounded-xl border border-(--border-color) p-3 file:ml-3 file:rounded-lg file:border-0 file:bg-(--bg) file:px-4 file:py-2 file:text-white file:hover:opacity-90"
+                    className="w-full rounded-xl border border-(--border-color) p-3 file:border-0 "
                 />
-                <p className="text-xs text-(--text-secondary) mt-1">
-                    اگر تصویر جدید نمی‌خواهید، خالی بگذارید
-                </p>
             </div>
 
             <div className="flex justify-end gap-3 pt-5 border-t border-(--border-color)">

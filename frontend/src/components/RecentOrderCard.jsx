@@ -16,11 +16,12 @@ const STATUS_STYLES = {
     }
 };
 
-export default function RecentOrderCard({ id, name, status }) {
+export default function RecentOrderCard({id, name, status}) {
     const statusStyle = STATUS_STYLES[status] || STATUS_STYLES['pending'];
 
     return (
-        <div className="border border-(--border-color) rounded-2xl flex items-center justify-between p-2 hover:bg-(--bg-hover) transition-colors">
+        <div
+            className="border border-(--border-color) rounded-2xl flex items-center justify-between p-2 hover:bg-(--bg-hover) transition-colors">
             <div className="flex items-center gap-3">
                 <span className="text-sm text-(--text-secondary)">#{id}</span>
                 <span className="text-(--border-color)">/</span>

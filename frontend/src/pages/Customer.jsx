@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { AddProductIcon, SearchIcon } from "../assets/icons/IconComponents.jsx";
-import { formatPrice } from "../utilities/HelperFunctions.jsx";
+import {useState} from 'react';
+import {AddProductIcon, SearchIcon} from "../assets/icons/IconComponents.jsx";
 import Pagination from "../components/Pagination.jsx";
 import CustomerTable from "../components/CustomerTable.jsx";
 
@@ -75,19 +74,22 @@ export default function Customer() {
 
     return (
         <div className="flex flex-col w-full h-auto">
-            <div className="bg-(--bg-secondary) w-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row items-start justify-between gap-4">
+            <div
+                className="bg-(--bg-secondary) w-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row items-start justify-between gap-4">
                 <div className="w-full md:w-auto">
                     <p className="text-(--text-secondary) text-xs sm:text-sm">عملیات فروشگاه / مشتریان</p>
                     <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-(--text)">مدیریت مشتریان</h1>
                 </div>
 
                 <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-                    <button className="flex items-center justify-center gap-2 border border-(--border-color) rounded-xl bg-black hover:bg-gray-800 transition-colors duration-200 size-10 sm:size-auto sm:px-5 sm:py-2.5">
+                    <button
+                        className="flex items-center justify-center gap-2 border border-(--border-color) rounded-xl bg-black hover:bg-gray-800 transition-colors duration-200 size-10 sm:size-auto sm:px-5 sm:py-2.5">
                         <AddProductIcon size={20} color="white" strokeWidth={2}/>
                         <span className="text-white text-sm hidden md:block">افزودن مشتری</span>
                     </button>
 
-                    <div className="flex items-center gap-2 border border-(--border-color) rounded-xl w-full sm:w-48 md:w-56 h-10 px-3 focus-within:border-(--primary) transition-colors duration-200">
+                    <div
+                        className="flex items-center gap-2 border border-(--border-color) rounded-xl w-full sm:w-48 md:w-56 h-10 px-3 focus-within:border-(--primary) transition-colors duration-200">
                         <SearchIcon size={20} color="#53606F" strokeWidth={1}/>
                         <input
                             type="text"

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 import mainIcon from '../assets/icons/mainIcon.svg';
-import { DashboardIcon, OrderIcon, ProductIcon, UserIcon } from "../assets/icons/IconComponents.jsx";
+import {DashboardIcon, OrderIcon, ProductIcon, UserIcon} from "../assets/icons/IconComponents.jsx";
 import {useNavigate} from "react-router-dom";
 
 const menuItems = [
@@ -60,9 +60,11 @@ export default function Sidebar() {
                         viewBox="0 0 24 24"
                     >
                         {isOpen ? (
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                  d="M6 18L18 6M6 6l12 12"/>
                         ) : (
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                  d="M4 6h16M4 12h16M4 18h16"/>
                         )}
                     </svg>
                 </button>
@@ -81,16 +83,16 @@ export default function Sidebar() {
                 className={`
                     w-72 min-h-screen bg-white flex flex-col border-l border-(--border-color)
                     transition-all duration-300 ease-in-out
-                    ${isMobile 
-                        ? 'fixed top-0 right-0 z-40 shadow-2xl'
-                        : 'relative'
-                    }
+                    ${isMobile
+                    ? 'fixed top-0 right-0 z-40 shadow-2xl'
+                    : 'relative'
+                }
                     ${isMobile && !isOpen ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'}
                 `}
             >
                 <div className="flex items-center gap-3 p-6 border-b border-(--border-color)">
                     <div className="w-12 h-12 rounded-lg bg-(--bg) flex items-center justify-center shrink-0">
-                        <img className="size-8" src={mainIcon} alt="لوگو" />
+                        <img className="size-8" src={mainIcon} alt="لوگو"/>
                     </div>
                     <div>
                         <h1 className="font-bold text-lg text-(--text)">پنل فروشگاه</h1>
@@ -104,7 +106,7 @@ export default function Sidebar() {
                             onClick={() => handleNavClick(slug)}
                             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-(--bg)`}
                         >
-                            <Icon size={18} color="currentColor" strokeWidth={2} />
+                            <Icon size={18} color="currentColor" strokeWidth={2}/>
                             <span className="font-medium">{label}</span>
                         </button>
                     ))}

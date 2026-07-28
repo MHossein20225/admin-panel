@@ -1,17 +1,24 @@
 import {formatPrice} from "../utilities/HelperFunctions.jsx";
 import {DeleteIcon, EditIcon} from "../assets/icons/IconComponents.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useActionData} from "react-router-dom";
 import Modal from "./ui/Modal.jsx";
 import EditProductForm from "../features/products/EditProductForm.jsx";
 import noProductImage from "../assets/Images/Products/noProductImage.jpg"
-import {log10} from "chart.js/helpers";
 
 export default function ProductTable({data}) {
     const [modalState, setModalState] = useState(false);
+    const actionData = useActionData();
 
     function handleEdit (productId) {
         setModalState(productId);
     }
+
+    useEffect(() => {
+        if (actionData?.success) {
+            setModalState(false);
+        }
+    }, [actionData]);
 
     console.log(modalState)
     return (

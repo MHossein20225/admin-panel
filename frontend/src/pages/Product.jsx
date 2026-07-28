@@ -1,19 +1,26 @@
 import {AddProductIcon, SearchIcon} from "../assets/icons/IconComponents.jsx";
 import ProductTable from "../components/ProductTable.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AddProductForm from "../features/products/AddProductForm.jsx";
 import Modal from "../components/ui/Modal.jsx";
 import api from "../api/api.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {queryClient} from "../main.jsx";
+import {useActionData} from "react-router-dom";
 
 
 export default function Product() {
     const [openAddProductSection, setOpenAddProductSection] = useState(false);
+    const actionData = useActionData()
     const {data: products, isLoading} = useQuery({
         queryKey: ["product"],
         queryFn: () => api.get("/products"),
     });
+    useEffect(() => {
+        if (actionData?.success) {
+            setOpenAddProductSection(false)
+        }
+    }, [actionData]);
 
     return (
         <div className="flex flex-col items-center w-full h-auto">
@@ -34,7 +41,7 @@ export default function Product() {
                                    size-10 sm:size-auto sm:px-5 sm:py-2.5"
                         aria-label="افزودن محصول"
                         onClick={() => {
-                            setOpenAddProductSection(!openAddProductSection)
+                            setOpenAddProductSection(true)
                         }}
                     >
                         <AddProductIcon size={20} color="white" strokeWidth={2}/>
@@ -102,4 +109,5 @@ export async function action({ request }) {
     await queryClient.invalidateQueries({
         queryKey: ["product"],
     })
+    return { success: true };
 }

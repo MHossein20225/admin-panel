@@ -3,6 +3,8 @@ import Spinner from "../../components/ui/Loader.jsx";
 
 export default function EditProductForm({id, title, description, price, off, category, stock}) {
     const navigation = useNavigation();
+
+    
     return (
         <Form method="post" className="space-y-5">
             <input type="text"

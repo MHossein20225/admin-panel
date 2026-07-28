@@ -94,6 +94,8 @@ export default function AddProductForm() {
                     پاک کردن
                 </button>
                 <button
+                    name="submit"
+                    value="add"
                     type="submit"
                     className="rounded-xl bg-(--bg) px-6 py-3 text-white hover:opacity-90 transition"
                 >

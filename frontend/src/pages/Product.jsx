@@ -1,4 +1,3 @@
-import {useLoaderData} from "react-router-dom"
 import {AddProductIcon, SearchIcon} from "../assets/icons/IconComponents.jsx";
 import ProductTable from "../components/ProductTable.jsx";
 import {useState} from "react";
@@ -6,6 +5,7 @@ import AddProductForm from "../features/products/AddProductForm.jsx";
 import Modal from "../components/ui/Modal.jsx";
 import api from "../api/api.jsx";
 import {useQuery} from "@tanstack/react-query";
+import {queryClient} from "../main.jsx";
 
 
 export default function Product() {
@@ -33,7 +33,9 @@ export default function Product() {
                         className="flex items-center justify-center gap-2 border border-(--border-color) rounded-xl bg-black hover:bg-gray-800 transition-colors duration-200
                                    size-10 sm:size-auto sm:px-5 sm:py-2.5"
                         aria-label="افزودن محصول"
-                        onClick={() => setOpenAddProductSection(!openAddProductSection)}
+                        onClick={() => {
+                            setOpenAddProductSection(!openAddProductSection)
+                        }}
                     >
                         <AddProductIcon size={20} color="white" strokeWidth={2}/>
                         <span className="text-white text-sm hidden md:block">افزودن محصول</span>
@@ -70,8 +72,7 @@ export default function Product() {
             </div>
 
             <div className="w-full flex flex-wrap p-4">
-                {isLoading ? "kir" : (<ProductTable data={products.data}/>)}
-
+                {isLoading ? "در حال بارگذاری ..." : <ProductTable data={products.data}/>}
             </div>
         </div>
     )
@@ -80,6 +81,25 @@ export default function Product() {
 export async function action({ request }) {
     const formData = await request.formData();
 
-    await api.post("/products", formData);
+    if (formData.get("submit") === "edit"){
+        await api.put(`/products/${formData.get("id")}`, {
+            title: formData.get("title"),
+            description: formData.get("description"),
+            price: formData.get("price"),
+            off: formData.get("off"),
+            category: formData.get("category"),
+        });
+    }else if(formData.get("submit") === "add"){
+        await api.post("/products", {
+            title: formData.get("title"),
+            description: formData.get("description"),
+            price: formData.get("price"),
+            off: formData.get("off"),
+            category: formData.get("category"),
+        });
+    }
 
+    await queryClient.invalidateQueries({
+        queryKey: ["product"],
+    })
 }

@@ -4,20 +4,16 @@ import {useState} from "react";
 import Modal from "./ui/Modal.jsx";
 import EditProductForm from "../features/products/EditProductForm.jsx";
 import noProductImage from "../assets/Images/Products/noProductImage.jpg"
+import {log10} from "chart.js/helpers";
 
 export default function ProductTable({data}) {
-    const [modalState, setModalState] = useState({
-        open: false,
-        product: null,
-    });
+    const [modalState, setModalState] = useState(false);
 
-    const handleEdit = (product) => {
-        setModalState({open: true, product});
-    };
+    function handleEdit (productId) {
+        setModalState(productId);
+    }
 
-    const handleClose = () => {
-        setModalState({open: false, product: null});
-    };
+    console.log(modalState)
     return (
         <>
             <table className="w-full">
@@ -47,7 +43,7 @@ export default function ProductTable({data}) {
                                         className="size-8 sm:size-10 rounded-lg object-cover"
                                     />
                                     <div className="flex flex-col">
-                                        <span className="text-sm font-medium text-(--text)">{product.name}</span>
+                                        <span className="text-sm font-medium text-(--text)">{product.title}</span>
                                         <span className="text-xs text-(--text-secondary) sm:hidden">
                                         {product.category}
                                     </span>
@@ -82,13 +78,12 @@ export default function ProductTable({data}) {
                             <td className="p-3 sm:p-4">
                                 <div className="flex items-center gap-1">
                                     <button
-                                        onClick={() => handleEdit(product)}
+                                        onClick={() => handleEdit(product.id)}
                                         className="p-1.5 hover:bg-blue-50 rounded-lg transition"
                                     >
                                         <EditIcon size={20} color="blue" strokeWidth={2}/>
                                     </button>
                                     <button
-                                        onClick={() => console.log('Delete:', product.id)}
                                         className="p-1.5 hover:bg-red-50 rounded-lg transition"
                                     >
                                         <DeleteIcon size={20} color="red" strokeWidth={2}/>
@@ -103,22 +98,23 @@ export default function ProductTable({data}) {
 
             <Modal
                 title="ویرایش محصول"
-                onOpen={modalState.open}
-                onClose={handleClose}
+                onOpen={modalState}
+                onClose={() => setModalState(false)}
             >
-                {modalState.product && (
-                    <EditProductForm
-                        id={modalState.product.id}
-                        title={modalState.product.name}
-                        description={modalState.product.description}
-                        price={modalState.product.price}
-                        off={modalState.product.off}
-                        category={modalState.product.category}
-                        stock={modalState.product.stock}
-                        image={modalState.product.image}
-                        onClose={handleClose}
-                    />
-                )}
+                {
+                    data.map(product => (
+                        product.id === modalState &&
+                        <EditProductForm
+                            id={product.id}
+                            title={product.title}
+                            description={product.description}
+                            price={product.price}
+                            off={product.off}
+                            category={product.category}
+                            stock={product.stock}
+                        />
+                    ))
+                }
             </Modal>
         </>
     );

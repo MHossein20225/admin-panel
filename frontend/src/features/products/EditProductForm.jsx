@@ -1,11 +1,15 @@
-import {Form} from "react-router-dom";
+import {Form, useNavigation} from "react-router-dom";
+import Spinner from "../../components/ui/Loader.jsx";
 
-export default function EditProductForm({id, title, description, price, off, category, stock, onClose}) {
-    console.log(title)
+export default function EditProductForm({id, title, description, price, off, category, stock}) {
+    const navigation = useNavigation();
     return (
         <Form method="post" className="space-y-5">
-            <input type="hidden" name="id" value={id}/>
-
+            <input type="text"
+                   name="id"
+                   defaultValue={id}
+                   className="w-full rounded-xl border border-(--border-color) px-4 py-3 outline-none focus:border-blue-500 transition"
+            />
             <div>
                 <label className="mb-2 block text-sm font-medium text-(--text)">
                     نام محصول
@@ -85,35 +89,31 @@ export default function EditProductForm({id, title, description, price, off, cat
                         name="stock"
                         min="0"
                         className="w-full rounded-xl border border-(--border-color) px-4 py-3 outline-none focus:border-blue-500 transition"
+                        readOnly={true}
                     />
                 </div>
             </div>
 
-            <div>
-                <label className="mb-2 block text-sm font-medium text-(--text)">
-                    تصویر جدید (اختیاری)
-                </label>
-                <input
-                    type="file"
-                    name="image"
-                    accept="image/*"
-                    className="w-full rounded-xl border border-(--border-color) p-3 file:border-0 "
-                />
-            </div>
+            {/*<div>*/}
+            {/*    <label className="mb-2 block text-sm font-medium text-(--text)">*/}
+            {/*        تصویر جدید (اختیاری)*/}
+            {/*    </label>*/}
+            {/*    <input*/}
+            {/*        type="file"*/}
+            {/*        name="image"*/}
+            {/*        accept="image/*"*/}
+            {/*        className="w-full rounded-xl border border-(--border-color) p-3 file:border-0 "*/}
+            {/*    />*/}
+            {/*</div>*/}
 
             <div className="flex justify-end gap-3 pt-5 border-t border-(--border-color)">
                 <button
-                    type="button"
-                    onClick={onClose}
-                    className="rounded-xl border border-(--border-color) px-6 py-3 hover:bg-(--bg-hover) transition text-(--text)"
-                >
-                    انصراف
-                </button>
-                <button
+                    name="submit"
+                    value="edit"
                     type="submit"
                     className="rounded-xl bg-black px-6 py-3 text-white hover:bg-gray-800 transition"
                 >
-                    ذخیره تغییرات
+                    {navigation.state === "submitting" ? <Spinner/> : "ذخیره تغییرات"}
                 </button>
             </div>
         </Form>

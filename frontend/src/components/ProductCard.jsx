@@ -1,4 +1,4 @@
-import {formatPrice} from "../utilities/HelperFunctions.jsx";
+import {formatPrice} from "../utils/HelperFunctions.jsx";
 
 export default function ProductCard({image, name, price, off = 0}) {
     const discountedPrice = price - price * (off / 100);

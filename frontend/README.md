@@ -1,21 +1,94 @@
-# React + Vite
+# 💄 Beauty Store Admin Panel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive Admin Dashboard built with React for managing a beauty and cosmetics store.
 
-Currently, two official plugins are available:
+> This project was created to improve my React development skills, project architecture, clean code practices, and reusable component design before moving to TypeScript and Next.js.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react)
-  uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc)
-  uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it,
-see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 📊 Dashboard Overview
+- 💄 Product Management
+- 🗂️ Category Management
+- 🔍 Search Products
+- 🎨 Responsive Design
+- 🪟 Reusable Modal Component
+- 📋 Reusable Table Component
+- 📝 Product Form
+- 🖼️ Image Upload
+- 📦 Inventory Management
+- ⚡ React Router Data API
+- ♻️ Reusable UI Components
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check
-out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information
-on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+- React
+- React Router v7
+- Axios
+- Tailwind CSS
+- Vite
+
+---
+
+## 📂 Project Structure
+
+```
+src
+│
+├── api
+├── assets
+├── components
+├── features
+├── layouts
+├── pages
+├── routes
+├── utils
+```
+
+---
+
+## 🎯 Project Goals
+
+This project focuses on improving:
+
+- Clean Code
+- Component Reusability
+- Project Architecture
+- Responsive UI Design
+- State Management
+- Modern React Development
+- Scalable Folder Structure
+
+---
+
+## 🚀 Planned Features
+
+- Authentication
+- Product CRUD
+- Category CRUD
+- Customer Management
+- Orders Management
+- Inventory Tracking
+- Dashboard Analytics
+- Search & Filtering
+- Pagination
+- Notifications
+- Dark Mode
+- TypeScript Migration
+- Backend Integration (Laravel)
+- Deployment
+
+---
+
+## 📸 Screenshots
+
+Coming Soon...
+
+---
+
+## 📄 License
+
+This project is intended for learning and portfolio purposes.

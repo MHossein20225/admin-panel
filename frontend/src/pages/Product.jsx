@@ -1,31 +1,19 @@
-import { AddProductIcon, SearchIcon } from "../assets/icons/IconComponents.jsx";
-import ProductTable from "../components/ProductTable.jsx";
+import {AddProductIcon, DeleteIcon, EditIcon, SearchIcon} from "../assets/icons/IconComponents.jsx";
 import { useEffect, useState } from "react";
 import AddProductForm from "../features/products/AddProductForm.jsx";
 import Modal from "../components/ui/Modal.jsx";
-import api from "../api/api.jsx";
-import { useQuery } from "@tanstack/react-query";
-import { queryClient } from "../main.jsx";
-import { useActionData } from "react-router-dom";
+import noProductImage from "../assets/Images/Products/noProductImage.jpg";
+import {formatPrice} from "../utils/HelperFunctions.jsx";
+import Table from "../components/ui/Table.jsx";
+import EditProductForm from "../features/products/EditProductForm.jsx";
+import {useCreateProduct, useDeleteProduct, useEditProduct, useProducts} from "../hooks/useProduct.jsx";
+import ProductRow from "../components/ProductRow.jsx";
 
 export default function Product() {
     const [openAddProductSection, setOpenAddProductSection] = useState(false);
 
-    const actionData = useActionData();
-
-    const { data: products = [], isLoading } = useQuery({
-        queryKey: ["products"],
-        queryFn: async () => {
-            const { data } = await api.get("/products");
-            return data;
-        },
-    });
-
-    useEffect(() => {
-        if (actionData?.success) {
-            setOpenAddProductSection(false);
-        }
-    }, [actionData]);
+    const {data: products, isLoading} = useProducts()
+    const deleteProduct = useDeleteProduct()
 
     return (
         <div className="flex flex-col items-center w-full h-auto">
@@ -91,64 +79,42 @@ export default function Product() {
                 </div>
             </div>
 
+
             <div className="w-full flex flex-wrap p-4">
                 {isLoading ? (
                     "در حال بارگذاری ..."
                 ) : (
-                    <ProductTable data={products} />
+                    <Table
+                        columns={[
+                            "نام محصول",
+                            "دسته‌بندی",
+                            "قیمت",
+                            "تخفیف",
+                            "موجودی",
+                            "عملیات",
+                        ]}
+                        values={products}
+                        editModal={(product) => (
+                            <EditProductForm
+                                id={product.id}
+                                title={product.title}
+                                description={product.description}
+                                price={product.price}
+                                off={product.off}
+                                category={product.category}
+                                stock={product.stock}
+                            />
+                        )}
+                        rowRender={(product, actions) => (
+                            <ProductRow
+                                product={product}
+                                actions={actions}
+                                deleteMutation={deleteProduct}
+                            />
+                        )}
+                    />
                 )}
             </div>
         </div>
     );
-}
-async function createProduct(formData) {
-    return api.post("/products", {
-        title: formData.get("title"),
-        description: formData.get("description"),
-        price: formData.get("price"),
-        off: formData.get("off"),
-        category: formData.get("category"),
-    });
-}
-
-async function updateProduct(formData) {
-    return api.put(`/products/${formData.get("id")}`, {
-        title: formData.get("title"),
-        description: formData.get("description"),
-        price: formData.get("price"),
-        off: formData.get("off"),
-        category: formData.get("category"),
-    });
-}
-
-export async function action({ request }) {
-    const formData = await request.formData();
-
-    try {
-        switch (formData.get("submit")) {
-            case "add":
-                await createProduct(formData);
-                break;
-            case "edit":
-                await updateProduct(formData);
-                break;
-            default:
-                return {
-                    success: false,
-                    message: "Invalid action",
-                };
-        }
-        return {
-            success: true,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.message,
-        };
-    } finally {
-        await queryClient.invalidateQueries({
-            queryKey: ["products"],
-        });
-    }
 }

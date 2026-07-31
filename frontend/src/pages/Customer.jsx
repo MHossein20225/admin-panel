@@ -1,7 +1,5 @@
 import {useState} from 'react';
 import {AddProductIcon, SearchIcon} from "../assets/icons/IconComponents.jsx";
-import Pagination from "../components/Pagination.jsx";
-import CustomerTable from "../components/CustomerTable.jsx";
 
 
 const CUSTOMERS_DATA = [
@@ -121,7 +119,7 @@ export default function Customer() {
             <div className="w-full p-4">
                 <div className="border border-(--border-color) rounded-2xl overflow-hidden">
                     <div className="overflow-x-auto">
-                        <CustomerTable data={CUSTOMERS_DATA}/>
+                        {/*customer table*/}
                     </div>
 
                     {CUSTOMERS_DATA.length === 0 && (
@@ -131,9 +129,6 @@ export default function Customer() {
                     )}
                 </div>
             </div>
-
-
-            <Pagination data={CUSTOMERS_DATA}/>
         </div>
     );
 }

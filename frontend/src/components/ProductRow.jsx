@@ -1,5 +1,4 @@
 import {DeleteIcon, EditIcon} from "../assets/icons/IconComponents.jsx";
-import {deleteProduct} from "../api/productApi.jsx";
 import {formatPrice} from "../utils/HelperFunctions.jsx";
 import noProductImage from "../assets/images/products/noProductImage.jpg";
 import {useDeleteProduct} from "../hooks/useProduct.jsx";

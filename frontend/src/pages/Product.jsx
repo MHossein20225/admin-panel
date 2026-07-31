@@ -86,6 +86,7 @@ export default function Product() {
                 ) : (
                     <Table
                         columns={[
+                            "شناسه",
                             "نام محصول",
                             "دسته‌بندی",
                             "قیمت",

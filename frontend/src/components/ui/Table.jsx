@@ -4,7 +4,7 @@ import Modal from "./Modal.jsx";
 export default function Table({columns, values, rowRender, editModal}) {
     const [modalState, setModalState] = useState(null);
 
-    const selectedValue = values.find(
+    const selectedValue = values?.find(
         (value) => value.id === modalState
     );
 
@@ -17,7 +17,7 @@ export default function Table({columns, values, rowRender, editModal}) {
                         #
                     </th>
 
-                    {columns.map((column) => (
+                    {columns?.map((column) => (
                         <th
                             key={column}
                             className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary)"
@@ -29,7 +29,7 @@ export default function Table({columns, values, rowRender, editModal}) {
                 </thead>
 
                 <tbody className="divide-y divide-(--border-color)">
-                {values.map((value) =>
+                {values?.map((value) =>
                     rowRender(value, {
                         onEdit: () => setModalState(value.id),
                     })

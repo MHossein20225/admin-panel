@@ -1,82 +1,31 @@
 import {useState} from 'react';
 import {AddProductIcon, SearchIcon} from "../assets/icons/IconComponents.jsx";
-
-
-const CUSTOMERS_DATA = [
-    {
-        id: 1,
-        name: "سارا محمدی",
-        phone: "09123456789",
-        email: "sara@example.com",
-        orders: 12,
-        totalSpent: 5200000,
-        status: "active",
-        date: "1402/12/15"
-    },
-    {
-        id: 2,
-        name: "علی رضایی",
-        phone: "09365432198",
-        email: "ali@example.com",
-        orders: 8,
-        totalSpent: 3100000,
-        status: "active",
-        date: "1402/11/20"
-    },
-    {
-        id: 3,
-        name: "مریم احمدی",
-        phone: "09187654321",
-        email: "maryam@example.com",
-        orders: 15,
-        totalSpent: 8900000,
-        status: "vip",
-        date: "1402/10/05"
-    },
-    {
-        id: 4,
-        name: "حسین کریمی",
-        phone: "09012345678",
-        email: "hossein@example.com",
-        orders: 3,
-        totalSpent: 1200000,
-        status: "inactive",
-        date: "1402/09/18"
-    },
-    {
-        id: 5,
-        name: "زهرا حسینی",
-        phone: "09125678901",
-        email: "zahra@example.com",
-        orders: 21,
-        totalSpent: 15600000,
-        status: "vip",
-        date: "1402/08/22"
-    },
-    {
-        id: 6,
-        name: "محمد تقوی",
-        phone: "09301122334",
-        email: "mohammad@example.com",
-        orders: 6,
-        totalSpent: 2800000,
-        status: "active",
-        date: "1402/07/10"
-    },
-];
-
+import Table from "../components/ui/Table.jsx";
+import {CUSTOMER_COLUMNS} from "../data/customers.js";
+import EditProductForm from "../features/products/EditProductForm.jsx";
+import ProductRow from "../components/ProductRow.jsx";
+import CustomerRow from "../components/CustomerRow.jsx";
+import {deleteProduct} from "../api/productApi.jsx";
+import {useCustomers, useDeleteCustomer} from "../hooks/useCustomer.jsx";
 
 export default function Customer() {
     const [searchTerm, setSearchTerm] = useState('');
     const [category, setCategory] = useState('all');
+    const { data: customers, isLoading } = useCustomers()
+    const deleteCustomer = useDeleteCustomer()
 
     return (
         <div className="flex flex-col w-full h-auto">
             <div
                 className="bg-(--bg-secondary) w-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row items-start justify-between gap-4">
                 <div className="w-full md:w-auto">
-                    <p className="text-(--text-secondary) text-xs sm:text-sm">عملیات فروشگاه / مشتریان</p>
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-(--text)">مدیریت مشتریان</h1>
+                    <p className="text-(--bg) text-xs sm:text-sm">
+                        عملیات فروشگاه / مشتریان
+                    </p>
+
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold truncate">
+                        مدیریت مشتریان
+                    </h1>
                 </div>
 
                 <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
@@ -119,14 +68,34 @@ export default function Customer() {
             <div className="w-full p-4">
                 <div className="border border-(--border-color) rounded-2xl overflow-hidden">
                     <div className="overflow-x-auto">
-                        {/*customer table*/}
+                        {isLoading ? (
+                            "در حال بارگذاری ..."
+                        ) : (
+                            <Table
+                                columns={CUSTOMER_COLUMNS}
+                                values={customers}
+                                editModal={(customer) => (
+                                    <EditProductForm
+                                        id={customer.id}
+                                        title={customer.title}
+                                        description={customer.description}
+                                        price={customer.price}
+                                        off={customer.off}
+                                        category={customer.category}
+                                        stock={customer.stock}
+                                    />
+                                )}
+                                rowRender={(customer, actions) => (
+                                    <CustomerRow
+                                        product={customer}
+                                        actions={actions}
+                                        deleteMutation={deleteCustomer}
+                                    />
+                                )}
+                            />
+                        )}
                     </div>
 
-                    {CUSTOMERS_DATA.length === 0 && (
-                        <div className="text-center py-12">
-                            <p className="text-(--text-secondary)">هیچ مشتری یافت نشد</p>
-                        </div>
-                    )}
                 </div>
             </div>
         </div>

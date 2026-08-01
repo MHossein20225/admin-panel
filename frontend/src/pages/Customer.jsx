@@ -3,14 +3,17 @@ import {AddProductIcon, SearchIcon} from "../assets/icons/IconComponents.jsx";
 import Table from "../components/ui/Table.jsx";
 import {CUSTOMER_COLUMNS} from "../data/customers.js";
 import EditProductForm from "../features/products/EditProductForm.jsx";
-import ProductRow from "../components/ProductRow.jsx";
-import CustomerRow from "../components/CustomerRow.jsx";
+import ProductRow from "../features/products/ProductRow.jsx";
+import CustomerRow from "../features/customers/CustomerRow.jsx";
 import {deleteProduct} from "../api/productApi.jsx";
 import {useCustomers, useDeleteCustomer} from "../hooks/useCustomer.jsx";
+import Modal from "../components/ui/Modal.jsx";
+import AddProductForm from "../features/products/AddProductForm.jsx";
+import AddCustomerForm from "../features/customers/AddCustomerForm.jsx";
 
 export default function Customer() {
     const [searchTerm, setSearchTerm] = useState('');
-    const [category, setCategory] = useState('all');
+    const [openAddCustomerModal, setOpenAddCustomerModal] = useState(false);
     const { data: customers, isLoading } = useCustomers()
     const deleteCustomer = useDeleteCustomer()
 
@@ -30,6 +33,7 @@ export default function Customer() {
 
                 <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
                     <button
+                        onClick={() => setOpenAddCustomerModal(true)}
                         className="flex items-center justify-center gap-2 border border-(--border-color) rounded-xl bg-black hover:bg-gray-800 transition-colors duration-200 size-10 sm:size-auto sm:px-5 sm:py-2.5">
                         <AddProductIcon size={20} color="white" strokeWidth={2}/>
                         <span className="text-white text-sm hidden md:block">افزودن مشتری</span>
@@ -50,53 +54,42 @@ export default function Customer() {
                 </div>
             </div>
 
-            <div className="w-full p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                <div className="w-40 h-10 border border-(--border-color) rounded-xl overflow-hidden">
-                    <select
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        className="w-full h-full px-3 outline-none text-sm bg-white cursor-pointer"
-                    >
-                        <option value="all">همه مشتریان</option>
-                        <option value="active">فعال</option>
-                        <option value="inactive">غیرفعال</option>
-                        <option value="vip">VIP</option>
-                    </select>
-                </div>
-            </div>
+            <Modal
+                onOpen={openAddCustomerModal}
+                onClose={() => setOpenAddCustomerModal(false)}
+                title="افزودن کاربر"
+                description="اطلاعات کاربر جدید را وارد کنید."
+            >
+                <AddCustomerForm />
+            </Modal>
 
-            <div className="w-full p-4">
-                <div className="border border-(--border-color) rounded-2xl overflow-hidden">
-                    <div className="overflow-x-auto">
-                        {isLoading ? (
-                            "در حال بارگذاری ..."
-                        ) : (
-                            <Table
-                                columns={CUSTOMER_COLUMNS}
-                                values={customers}
-                                editModal={(customer) => (
-                                    <EditProductForm
-                                        id={customer.id}
-                                        title={customer.title}
-                                        description={customer.description}
-                                        price={customer.price}
-                                        off={customer.off}
-                                        category={customer.category}
-                                        stock={customer.stock}
-                                    />
-                                )}
-                                rowRender={(customer, actions) => (
-                                    <CustomerRow
-                                        product={customer}
-                                        actions={actions}
-                                        deleteMutation={deleteCustomer}
-                                    />
-                                )}
+            <div className="w-full flex flex-wrap p-4">
+                {isLoading ? (
+                    "در حال بارگذاری ..."
+                ) : (
+                    <Table
+                        columns={CUSTOMER_COLUMNS}
+                        values={customers}
+                        editModal={(customer) => (
+                            <EditProductForm
+                                id={customer.id}
+                                title={customer.title}
+                                description={customer.description}
+                                price={customer.price}
+                                off={customer.off}
+                                category={customer.category}
+                                stock={customer.stock}
                             />
                         )}
-                    </div>
-
-                </div>
+                        rowRender={(customer, actions) => (
+                            <CustomerRow
+                                product={customer}
+                                actions={actions}
+                                deleteMutation={deleteCustomer}
+                            />
+                        )}
+                    />
+                )}
             </div>
         </div>
     );

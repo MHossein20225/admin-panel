@@ -7,7 +7,8 @@ import {formatPrice} from "../utils/HelperFunctions.jsx";
 import Table from "../components/ui/Table.jsx";
 import EditProductForm from "../features/products/EditProductForm.jsx";
 import {useCreateProduct, useDeleteProduct, useEditProduct, useProducts} from "../hooks/useProduct.jsx";
-import ProductRow from "../components/ProductRow.jsx";
+import ProductRow from "../features/products/ProductRow.jsx";
+import {PRODUCT_COLUMNS} from "../data/products.js";
 
 export default function Product() {
     const [openAddProductSection, setOpenAddProductSection] = useState(false);
@@ -85,15 +86,7 @@ export default function Product() {
                     "در حال بارگذاری ..."
                 ) : (
                     <Table
-                        columns={[
-                            "شناسه",
-                            "نام محصول",
-                            "دسته‌بندی",
-                            "قیمت",
-                            "تخفیف",
-                            "موجودی",
-                            "عملیات",
-                        ]}
+                        columns={PRODUCT_COLUMNS}
                         values={products}
                         editModal={(product) => (
                             <EditProductForm

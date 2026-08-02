@@ -1,23 +1,25 @@
 import Spinner from "../../components/ui/Loader.jsx";
-import {useCreateProduct, useEditProduct} from "../../hooks/useProduct.jsx";
 import {useEditCustomer} from "../../hooks/useCustomer.jsx";
 
 export default function EditCustomerForm({id, name, email, phone, status}) {
 
     const editCustomer = useEditCustomer();
+
     function handelSubmit(e) {
         e.preventDefault();
 
         const formData = new FormData(e.target);
-        editCustomer.mutate({id, product:{
-            name: formData.get("name"),
-            email: formData.get("email"),
-            phone: formData.get("phone"),
-            status: formData.get("status")
-        }})
+        editCustomer.mutate({
+            id, product: {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                phone: formData.get("phone"),
+                status: formData.get("status")
+            }
+        })
     }
 
-    
+
     return (
         <form onSubmit={e => handelSubmit(e)} method="post" className="space-y-5">
             <input type="text"

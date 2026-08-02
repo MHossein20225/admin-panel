@@ -1,22 +1,26 @@
 import api from "./api.jsx";
 
 export async function getCustomers() {
-    const { data } = await api.get("/customers");
+    const {data} = await api.get("/customers");
     return data;
 }
+
 export async function getCustomer(id) {
-    const { data } = await api.get(`/customers/${id}`);
+    const {data} = await api.get(`/customers/${id}`);
     return data;
 }
+
 export async function createCustomer(product) {
-    const { data } = await api.post("/customers", product);
+    const {data} = await api.post("/customers", product);
     return data;
 }
+
 export async function editCustomer(id, product) {
-    const { data } = await api.put(`/customers/${id}`, product);
+    const {data} = await api.put(`/customers/${id}`, product);
     return data;
 }
+
 export async function deleteCustomer(id) {
-    const { data } = await api.delete(`/customers/${id}`);
+    const {data} = await api.delete(`/customers/${id}`);
     return data;
 }

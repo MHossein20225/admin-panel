@@ -1,5 +1,4 @@
-import {Form} from "react-router-dom";
-import {useNavigation} from "react-router-dom";
+import {Form, useNavigation} from "react-router-dom";
 import Spinner from "../../components/ui/Loader.jsx";
 
 export default function AddCustomerForm() {
@@ -72,7 +71,7 @@ export default function AddCustomerForm() {
                     type="submit"
                     className="rounded-xl bg-(--bg) px-6 py-3 text-white hover:opacity-90 transition"
                 >
-                {navigation.state === "submitting" ? <Spinner/> : "افزودن محصول"}
+                    {navigation.state === "submitting" ? <Spinner/> : "افزودن محصول"}
 
                 </button>
             </div>

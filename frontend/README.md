@@ -2,7 +2,8 @@
 
 A modern and responsive Admin Dashboard built with React for managing a beauty and cosmetics store.
 
-> This project was created to improve my React development skills, project architecture, clean code practices, and reusable component design before moving to TypeScript and Next.js.
+> This project was created to improve my React development skills, project architecture, clean code practices, and
+> reusable component design before moving to TypeScript and Next.js.
 
 ---
 

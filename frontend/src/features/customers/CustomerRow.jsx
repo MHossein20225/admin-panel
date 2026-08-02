@@ -1,8 +1,4 @@
 import {DeleteIcon, EditIcon} from "../../assets/icons/IconComponents.jsx";
-import {formatPrice} from "../../utils/HelperFunctions.jsx";
-import noProductImage from "../../assets/Images/Products/noProductImage.jpg";
-import {useDeleteProduct} from "../../hooks/useProduct.jsx";
-import {deleteCustomer} from "../../api/customerApi.jsx";
 import {useDeleteCustomer} from "../../hooks/useCustomer.jsx";
 
 export default function CustomerRow({customer, actions}) {

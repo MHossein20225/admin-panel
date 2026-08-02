@@ -2,20 +2,16 @@ import {useState} from 'react';
 import {AddProductIcon, SearchIcon} from "../assets/icons/IconComponents.jsx";
 import Table from "../components/ui/Table.jsx";
 import {CUSTOMER_COLUMNS} from "../data/customers.js";
-import EditProductForm from "../features/products/EditProductForm.jsx";
-import ProductRow from "../features/products/ProductRow.jsx";
 import CustomerRow from "../features/customers/CustomerRow.jsx";
-import {deleteProduct} from "../api/productApi.jsx";
 import {useCustomers, useDeleteCustomer} from "../hooks/useCustomer.jsx";
 import Modal from "../components/ui/Modal.jsx";
-import AddProductForm from "../features/products/AddProductForm.jsx";
 import AddCustomerForm from "../features/customers/AddCustomerForm.jsx";
 import EditCustomerForm from "../features/customers/EditCustomrForm.jsx";
 
 export default function Customer() {
     const [searchTerm, setSearchTerm] = useState('');
     const [openAddCustomerModal, setOpenAddCustomerModal] = useState(false);
-    const { data: customers = [], isLoading } = useCustomers()
+    const {data: customers = [], isLoading} = useCustomers()
     const deleteCustomer = useDeleteCustomer()
 
     const filteredCustomers = customers.filter(customer =>
@@ -64,7 +60,7 @@ export default function Customer() {
                 title="افزودن کاربر"
                 description="اطلاعات کاربر جدید را وارد کنید."
             >
-                <AddCustomerForm />
+                <AddCustomerForm/>
             </Modal>
 
             <div className="w-full flex flex-wrap p-4">

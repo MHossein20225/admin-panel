@@ -3,6 +3,7 @@ import {useCreateProduct} from "../../hooks/useProduct.jsx";
 
 export default function AddProductForm() {
     const addProduct = useCreateProduct();
+
     function handelSubmit(e) {
         e.preventDefault();
 
@@ -15,6 +16,7 @@ export default function AddProductForm() {
             category: formData.get("category"),
         })
     }
+
     return (
         <form onSubmit={e => handelSubmit(e)} method="post" className="space-y-5">
             <div>
@@ -108,7 +110,7 @@ export default function AddProductForm() {
                     type="submit"
                     className="rounded-xl bg-(--bg) px-6 py-3 text-white hover:opacity-90 transition"
                 >
-                {addProduct.isPending ? <Spinner/> : "افزودن محصول"}
+                    {addProduct.isPending ? <Spinner/> : "افزودن محصول"}
 
                 </button>
             </div>

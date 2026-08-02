@@ -13,7 +13,6 @@ import {PRODUCT_COLUMNS} from "../data/products.js";
 export default function Product() {
     const [openAddProductSection, setOpenAddProductSection] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-
     const {data: products = [], isLoading} = useProducts()
     const deleteProduct = useDeleteProduct()
 

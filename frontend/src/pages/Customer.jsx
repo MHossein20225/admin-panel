@@ -10,6 +10,7 @@ import {useCustomers, useDeleteCustomer} from "../hooks/useCustomer.jsx";
 import Modal from "../components/ui/Modal.jsx";
 import AddProductForm from "../features/products/AddProductForm.jsx";
 import AddCustomerForm from "../features/customers/AddCustomerForm.jsx";
+import EditCustomerForm from "../features/customers/EditCustomrForm.jsx";
 
 export default function Customer() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -17,7 +18,7 @@ export default function Customer() {
     const { data: customers = [], isLoading } = useCustomers()
     const deleteCustomer = useDeleteCustomer()
 
-    const filteredProducts = customers.filter(customer =>
+    const filteredCustomers = customers.filter(customer =>
         customer.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     return (
@@ -72,16 +73,14 @@ export default function Customer() {
                 ) : (
                     <Table
                         columns={CUSTOMER_COLUMNS}
-                        values={filteredProducts ?? customers}
+                        values={filteredCustomers ?? customers}
                         editModal={(customer) => (
-                            <EditProductForm
+                            <EditCustomerForm
                                 id={customer.id}
-                                title={customer.title}
-                                description={customer.description}
-                                price={customer.price}
-                                off={customer.off}
-                                category={customer.category}
-                                stock={customer.stock}
+                                name={customer.name}
+                                email={customer.email}
+                                phone={customer.phone}
+                                status={customer.status}
                             />
                         )}
                         rowRender={(customer, actions) => (

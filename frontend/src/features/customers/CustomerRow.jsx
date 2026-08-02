@@ -2,9 +2,11 @@ import {DeleteIcon, EditIcon} from "../../assets/icons/IconComponents.jsx";
 import {formatPrice} from "../../utils/HelperFunctions.jsx";
 import noProductImage from "../../assets/Images/Products/noProductImage.jpg";
 import {useDeleteProduct} from "../../hooks/useProduct.jsx";
+import {deleteCustomer} from "../../api/customerApi.jsx";
+import {useDeleteCustomer} from "../../hooks/useCustomer.jsx";
 
 export default function CustomerRow({customer, actions}) {
-    const deleteProduct = useDeleteProduct();
+    const deleteCustomer = useDeleteCustomer();
     return (
         <tr
             key={customer.id}
@@ -57,8 +59,11 @@ export default function CustomerRow({customer, actions}) {
                     </button>
 
                     <button
-                        onClick={() => deleteProduct.mutate(customer.id)}
-                        disabled={deleteProduct.isPending}
+                        onClick={() => {
+                            if (confirm("آیا از حذف این کاربر مطمعن هستید؟"))
+                                deleteCustomer.mutate(customer.id);
+                        }}
+                        disabled={deleteCustomer.isPending}
                         className="p-1.5 hover:bg-red-50 rounded-lg transition"
                     >
                         <DeleteIcon

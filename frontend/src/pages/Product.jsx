@@ -12,10 +12,14 @@ import {PRODUCT_COLUMNS} from "../data/products.js";
 
 export default function Product() {
     const [openAddProductSection, setOpenAddProductSection] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const {data: products, isLoading} = useProducts()
+    const {data: products = [], isLoading} = useProducts()
     const deleteProduct = useDeleteProduct()
 
+    const filteredProducts = products.filter(product =>
+        product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     return (
         <div className="flex flex-col items-center w-full h-auto">
             <div className="bg-(--bg-secondary) w-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row items-start justify-between gap-4 h-32">
@@ -54,6 +58,7 @@ export default function Product() {
                         />
 
                         <input
+                            onChange={e => {setSearchTerm(e.target.value)}}
                             type="text"
                             className="w-full h-full outline-none text-sm bg-transparent"
                             placeholder="جستجو در سفارش‌ها..."
@@ -87,7 +92,7 @@ export default function Product() {
                 ) : (
                     <Table
                         columns={PRODUCT_COLUMNS}
-                        values={products}
+                        values={filteredProducts ?? products}
                         editModal={(product) => (
                             <EditProductForm
                                 id={product.id}
@@ -96,7 +101,6 @@ export default function Product() {
                                 price={product.price}
                                 off={product.off}
                                 category={product.category}
-                                stock={product.stock}
                             />
                         )}
                         rowRender={(product, actions) => (

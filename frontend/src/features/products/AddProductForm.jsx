@@ -1,11 +1,22 @@
-import {Form} from "react-router-dom";
-import {useNavigation} from "react-router-dom";
 import Spinner from "../../components/ui/Loader.jsx";
+import {useCreateProduct} from "../../hooks/useProduct.jsx";
 
 export default function AddProductForm() {
-    const navigation = useNavigation()
+    const addProduct = useCreateProduct();
+    function handelSubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        addProduct.mutate({
+            title: formData.get("title"),
+            description: formData.get("description"),
+            price: formData.get("price"),
+            off: formData.get("off"),
+            category: formData.get("category"),
+        })
+    }
     return (
-        <Form method="post" className="space-y-5">
+        <form onSubmit={e => handelSubmit(e)} method="post" className="space-y-5">
             <div>
                 <label className="mb-2 block text-sm font-medium">
                     نام محصول
@@ -74,17 +85,17 @@ export default function AddProductForm() {
                 </select>
             </div>
 
-            <div>
-                <label className="mb-2 block text-sm font-medium">
-                    تصویر
-                </label>
+            {/*<div>*/}
+            {/*    <label className="mb-2 block text-sm font-medium">*/}
+            {/*        تصویر*/}
+            {/*    </label>*/}
 
-                <input
-                    type="file"
-                    name="image"
-                    className="w-full rounded-xl border p-3"
-                />
-            </div>
+            {/*    <input*/}
+            {/*        type="file"*/}
+            {/*        name="image"*/}
+            {/*        className="w-full rounded-xl border p-3"*/}
+            {/*    />*/}
+            {/*</div>*/}
             <div className="flex justify-end gap-3 pt-5">
 
                 <button
@@ -94,15 +105,13 @@ export default function AddProductForm() {
                     پاک کردن
                 </button>
                 <button
-                    name="submit"
-                    value="add"
                     type="submit"
                     className="rounded-xl bg-(--bg) px-6 py-3 text-white hover:opacity-90 transition"
                 >
-                {navigation.state === "submitting" ? <Spinner/> : "افزودن محصول"}
+                {addProduct.isPending ? <Spinner/> : "افزودن محصول"}
 
                 </button>
             </div>
-        </Form>
+        </form>
     );
 }

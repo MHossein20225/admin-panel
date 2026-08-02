@@ -1,12 +1,25 @@
-import {Form, useNavigation} from "react-router-dom";
 import Spinner from "../../components/ui/Loader.jsx";
+import {useCreateProduct, useEditProduct} from "../../hooks/useProduct.jsx";
 
-export default function EditProductForm({id, title, description, price, off, category, stock}) {
-    const navigation = useNavigation();
+export default function EditProductForm({id, title, description, price, off, category}) {
+
+    const editProduct = useEditProduct();
+    function handelSubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        editProduct.mutate({id, product:{
+            title: formData.get("title"),
+            description: formData.get("description"),
+            price: formData.get("price"),
+            off: formData.get("off"),
+            category: formData.get("category"),
+        }})
+    }
 
     
     return (
-        <Form method="post" className="space-y-5">
+        <form onSubmit={e => handelSubmit(e)} method="post" className="space-y-5">
             <input type="text"
                    name="id"
                    defaultValue={id}
@@ -80,20 +93,6 @@ export default function EditProductForm({id, title, description, price, off, cat
                         <option value="لوازم آرایشی">لوازم آرایشی</option>
                     </select>
                 </div>
-
-                <div>
-                    <label className="mb-2 block text-sm font-medium text-(--text)">
-                        موجودی
-                    </label>
-                    <input
-                        defaultValue={stock}
-                        type="number"
-                        name="stock"
-                        min="0"
-                        className="w-full rounded-xl border border-(--border-color) px-4 py-3 outline-none focus:border-blue-500 transition"
-                        readOnly={true}
-                    />
-                </div>
             </div>
 
             {/*<div>*/}
@@ -110,14 +109,12 @@ export default function EditProductForm({id, title, description, price, off, cat
 
             <div className="flex justify-end gap-3 pt-5 border-t border-(--border-color)">
                 <button
-                    name="submit"
-                    value="edit"
                     type="submit"
                     className="rounded-xl bg-black px-6 py-3 text-white hover:bg-gray-800 transition"
                 >
-                    {navigation.state === "submitting" ? <Spinner/> : "ذخیره تغییرات"}
+                    {editProduct.isPending ? <Spinner/> : "ذخیره تغییرات"}
                 </button>
             </div>
-        </Form>
+        </form>
     );
 }

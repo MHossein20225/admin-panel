@@ -81,7 +81,10 @@ export default function ProductRow({product, actions}) {
                         </button>
 
                         <button
-                            onClick={() => deleteProduct.mutate(product.id)}
+                            onClick={() => {
+                                if(confirm("آیا از حذف این کالا مطمعن هستید"))
+                                    deleteProduct.mutate(product.id);
+                            }}
                             disabled={deleteProduct.isPending}
                             className="p-1.5 hover:bg-red-50 rounded-lg transition"
                         >

@@ -14,9 +14,12 @@ import AddCustomerForm from "../features/customers/AddCustomerForm.jsx";
 export default function Customer() {
     const [searchTerm, setSearchTerm] = useState('');
     const [openAddCustomerModal, setOpenAddCustomerModal] = useState(false);
-    const { data: customers, isLoading } = useCustomers()
+    const { data: customers = [], isLoading } = useCustomers()
     const deleteCustomer = useDeleteCustomer()
 
+    const filteredProducts = customers.filter(customer =>
+        customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     return (
         <div className="flex flex-col w-full h-auto">
             <div
@@ -69,7 +72,7 @@ export default function Customer() {
                 ) : (
                     <Table
                         columns={CUSTOMER_COLUMNS}
-                        values={customers}
+                        values={filteredProducts ?? customers}
                         editModal={(customer) => (
                             <EditProductForm
                                 id={customer.id}
@@ -83,7 +86,7 @@ export default function Customer() {
                         )}
                         rowRender={(customer, actions) => (
                             <CustomerRow
-                                product={customer}
+                                customer={customer}
                                 actions={actions}
                                 deleteMutation={deleteCustomer}
                             />

@@ -19,7 +19,7 @@ export function useProduct(id) {
 
 export function useCreateProduct() {
     return useMutation({
-        mutationFn: createProduct,
+        mutationFn: (product) => createProduct(product),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ["products"],

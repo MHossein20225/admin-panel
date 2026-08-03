@@ -17,8 +17,6 @@ A modern and responsive Admin Dashboard built with React for managing a beauty a
 - 🪟 Reusable Modal Component
 - 📋 Reusable Table Component
 - 📝 Product Form
-- 🖼️ Image Upload
-- 📦 Inventory Management
 - ⚡ React Router Data API
 - ♻️ Reusable UI Components
 
@@ -31,23 +29,6 @@ A modern and responsive Admin Dashboard built with React for managing a beauty a
 - Axios
 - Tailwind CSS
 - Vite
-
----
-
-## 📂 Project Structure
-
-```
-src
-│
-├── api
-├── assets
-├── components
-├── features
-├── layouts
-├── pages
-├── routes
-├── utils
-```
 
 ---
 
@@ -67,26 +48,9 @@ This project focuses on improving:
 
 ## 🚀 Planned Features
 
-- Authentication
-- Product CRUD
-- Category CRUD
-- Customer Management
-- Orders Management
-- Inventory Tracking
-- Dashboard Analytics
-- Search & Filtering
-- Pagination
-- Notifications
 - Dark Mode
 - TypeScript Migration
 - Backend Integration (Laravel)
-- Deployment
-
----
-
-## 📸 Screenshots
-
-Coming Soon...
 
 ---
 

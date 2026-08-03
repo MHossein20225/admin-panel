@@ -87,17 +87,6 @@ export default function AddProductForm() {
                 </select>
             </div>
 
-            {/*<div>*/}
-            {/*    <label className="mb-2 block text-sm font-medium">*/}
-            {/*        تصویر*/}
-            {/*    </label>*/}
-
-            {/*    <input*/}
-            {/*        type="file"*/}
-            {/*        name="image"*/}
-            {/*        className="w-full rounded-xl border p-3"*/}
-            {/*    />*/}
-            {/*</div>*/}
             <div className="flex justify-end gap-3 pt-5">
 
                 <button

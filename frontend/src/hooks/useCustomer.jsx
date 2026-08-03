@@ -1,6 +1,7 @@
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {queryClient} from "../main.jsx";
 import {createCustomer, deleteCustomer, editCustomer, getCustomer, getCustomers} from "../api/customerApi.jsx";
+import {errorToast, successToast} from "../utils/toasts.jsx";
 
 export function useCustomers() {
     return useQuery({
@@ -19,12 +20,16 @@ export function useCustomer(id) {
 
 export function useCreateCustomer() {
     return useMutation({
-        mutationFn: createCustomer,
+        mutationFn: customer => createCustomer(customer),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ["Customers"],
             });
+            successToast("مشتری اضافه شد")
         },
+        onError: () => {
+            errorToast("مشتری اضافه نشد")
+        }
     });
 }
 
@@ -35,7 +40,11 @@ export function useEditCustomer() {
             queryClient.invalidateQueries({
                 queryKey: ["Customers"],
             });
+            successToast("مشتری ویرایش شد")
         },
+        onError: () => {
+            errorToast("مشتری ویرایش نشد")
+        }
     });
 }
 
@@ -46,6 +55,10 @@ export function useDeleteCustomer() {
             queryClient.invalidateQueries({
                 queryKey: ["Customers"],
             });
+            successToast("مشتری حذف شد")
         },
+        onError: () => {
+            errorToast("مشتری حذف نشد")
+        }
     });
 }

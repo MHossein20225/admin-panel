@@ -1,10 +1,22 @@
-import {Form, useNavigation} from "react-router-dom";
 import Spinner from "../../components/ui/Loader.jsx";
+import {useCreateCustomer} from "../../hooks/useCustomer.jsx";
 
 export default function AddCustomerForm() {
-    const navigation = useNavigation()
+    const addCustomer = useCreateCustomer();
+
+    function handelSubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        addCustomer.mutate({
+            name: formData.get("name"),
+            email: formData.get("email"),
+            password: formData.get("password"),
+            phone: formData.get("phone"),
+        })
+    }
     return (
-        <Form method="post" className="space-y-5">
+        <form onSubmit={handelSubmit} method="post" className="space-y-5">
             <div>
                 <label className="mb-2 block text-sm font-medium">
                     نام مشتری
@@ -51,7 +63,7 @@ export default function AddCustomerForm() {
                 </label>
 
                 <input
-                    name="mobile"
+                    name="phone"
                     type="text"
                     className="w-full rounded-xl border px-4 py-3 outline-none focus:border-blue-500"
                 />
@@ -71,10 +83,10 @@ export default function AddCustomerForm() {
                     type="submit"
                     className="rounded-xl bg-(--bg) px-6 py-3 text-white hover:opacity-90 transition"
                 >
-                    {navigation.state === "submitting" ? <Spinner/> : "افزودن محصول"}
+                    {addCustomer.isPending ? <Spinner/> : "افزودن کاربر"}
 
                 </button>
             </div>
-        </Form>
+        </form>
     );
 }

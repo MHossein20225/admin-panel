@@ -1,6 +1,7 @@
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {createProduct, deleteProduct, editProduct, getProduct, getProducts,} from "../api/productApi.jsx";
 import {queryClient} from "../main.jsx";
+import {errorToast, successToast} from "../utils/toasts.jsx";
 
 export function useProducts() {
     return useQuery({
@@ -24,6 +25,10 @@ export function useCreateProduct() {
             queryClient.invalidateQueries({
                 queryKey: ["products"],
             });
+            successToast("محصول اضافه شد.");
+        },
+        onError: () => {
+            errorToast("خطا در افزودن محصول.");
         },
     });
 }
@@ -35,7 +40,11 @@ export function useEditProduct() {
             queryClient.invalidateQueries({
                 queryKey: ["products"],
             });
+            successToast("محصول ویرایش شد.");
         },
+        onError: () => {
+            errorToast("ویرایش انجام نشد.");
+        }
     });
 }
 
@@ -46,6 +55,10 @@ export function useDeleteProduct() {
             queryClient.invalidateQueries({
                 queryKey: ["products"],
             });
+            successToast("محصول حذف شد.");
         },
+        onError: () => {
+            errorToast("حذف انجام نشد.");
+        }
     });
 }

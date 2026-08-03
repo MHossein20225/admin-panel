@@ -7,16 +7,27 @@ import EditProductForm from "../features/products/EditProductForm.jsx";
 import {useDeleteProduct, useProducts} from "../hooks/useProduct.jsx";
 import ProductRow from "../features/products/ProductRow.jsx";
 import {PRODUCT_COLUMNS} from "../data/products.js";
+import Pagination from "../components/ui/Pagination.jsx";
 
 export default function Product() {
     const [openAddProductSection, setOpenAddProductSection] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
     const {data: products = [], isLoading} = useProducts()
     const deleteProduct = useDeleteProduct()
 
+    const itemsPerPage = 10;
+
     const filteredProducts = products.filter(product =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+
+
     return (
         <div className="flex flex-col items-center w-full h-auto">
             <div
@@ -93,7 +104,7 @@ export default function Product() {
                 ) : (
                     <Table
                         columns={PRODUCT_COLUMNS}
-                        values={filteredProducts ?? products}
+                        values={paginatedProducts}
                         editModal={(product) => (
                             <EditProductForm
                                 id={product.id}
@@ -114,6 +125,7 @@ export default function Product() {
                     />
                 )}
             </div>
+            <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
         </div>
     );
 }

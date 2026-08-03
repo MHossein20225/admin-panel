@@ -4,7 +4,7 @@ import {DashboardIcon, OrderIcon, ProductIcon, UserIcon} from "../assets/icons/I
 import {useNavigate} from "react-router-dom";
 
 const menuItems = [
-    {icon: DashboardIcon, label: 'داشبورد', slug: 'dashboard'},
+    {icon: DashboardIcon, label: 'داشبورد', slug: '/'},
     {icon: OrderIcon, label: 'سفارشات', slug: 'orders'},
     {icon: ProductIcon, label: 'محصولات', slug: 'products'},
     {icon: UserIcon, label: 'مشتری ها', slug: 'customers'},

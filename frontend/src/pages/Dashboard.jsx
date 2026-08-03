@@ -85,15 +85,6 @@ export default function Dashboard() {
                             <h3 className="text-lg sm:text-xl font-bold text-(--text)">روند فروش هفتگی</h3>
                             <p className="text-sm text-(--text-secondary) mt-1">مقایسه درآمد، سفارش و بازگشت کالا</p>
                         </div>
-
-                        {/* اختیاری: دکمه‌های فیلتر */}
-                        <div className="flex gap-2">
-                            <button className="px-3 py-1 text-xs rounded-lg bg-(--bg-primary) text-(--text)">هفتگی
-                            </button>
-                            <button
-                                className="px-3 py-1 text-xs rounded-lg hover:bg-(--bg) text-(--text-secondary)">ماهانه
-                            </button>
-                        </div>
                     </div>
 
                     <div className="flex-1 w-full min-h-75">

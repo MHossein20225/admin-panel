@@ -5,14 +5,14 @@ import {errorToast, successToast} from "../utils/toasts.jsx";
 
 export function useCustomers() {
     return useQuery({
-        queryKey: ["Customers"],
+        queryKey: ["customers"],
         queryFn: getCustomers,
     });
 }
 
 export function useCustomer(id) {
     return useQuery({
-        queryKey: ["Customers", id],
+        queryKey: ["customers", id],
         queryFn: () => getCustomer(id),
         enabled: !!id,
     });
@@ -23,7 +23,7 @@ export function useCreateCustomer() {
         mutationFn: customer => createCustomer(customer),
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ["Customers"],
+                queryKey: ["customers"],
             });
             successToast("مشتری اضافه شد")
         },
@@ -38,7 +38,7 @@ export function useEditCustomer() {
         mutationFn: ({id, product}) => editCustomer(id, product),
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ["Customers"],
+                queryKey: ["customers"],
             });
             successToast("مشتری ویرایش شد")
         },
@@ -53,7 +53,7 @@ export function useDeleteCustomer() {
         mutationFn: (id) => deleteCustomer(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ["Customers"],
+                queryKey: ["customers"],
             });
             successToast("مشتری حذف شد")
         },

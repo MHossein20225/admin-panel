@@ -6,7 +6,7 @@ import CustomerRow from "../features/customers/CustomerRow.jsx";
 import {useCustomers, useDeleteCustomer} from "../hooks/useCustomer.jsx";
 import Modal from "../components/ui/Modal.jsx";
 import AddCustomerForm from "../features/customers/AddCustomerForm.jsx";
-import EditCustomerForm from "../features/customers/EditCustomrForm.jsx";
+import EditCustomerForm from "../features/customers/EditCustomerForm.jsx";
 import Pagination from "../components/ui/Pagination.jsx";
 import {useDataFilter} from "../hooks/useDataFilter.jsx";
 
@@ -15,7 +15,18 @@ export default function Customer() {
     const {data: customers = [], isLoading} = useCustomers()
     const deleteCustomer = useDeleteCustomer()
 
-    const {paginatedData, totalPages, currentPage, handleSearch, handleSort, handlePageChange, getSortArrow} = useDataFilter(customers, 10);
+    const {
+        data,
+        totalPages,
+        currentPage,
+        handleSearch,
+        handleSort,
+        handlePageChange,
+        getSortArrow,
+    } = useDataFilter(customers, {
+        searchKey: "name",
+        itemsPerPage: 10,
+    });
     return (
         <div className="flex flex-col w-full h-auto">
             <div
@@ -84,7 +95,7 @@ export default function Customer() {
                 ) : (
                     <Table
                         columns={CUSTOMER_COLUMNS}
-                        values={paginatedData}
+                        values={data}
                         editModal={(customer) => (
                             <EditCustomerForm
                                 id={customer.id}

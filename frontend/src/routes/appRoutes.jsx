@@ -3,13 +3,15 @@ import MainLayout from "../Layouts/MainLayout.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
 import Product from "../pages/Product.jsx";
 import Customer from "../pages/Customer.jsx";
+import Order from "../pages/Order.jsx";
 
 export const routes = createBrowserRouter([
     {
         path: '/', element: <MainLayout/>, children: [
             {index: true, element: <Dashboard/>},
             {path: '/products', element: <Product/>},
-            {path: '/customers', element: <Customer/>}
+            {path: '/customers', element: <Customer/>},
+            {path: '/orders', element: <Order/>}
         ]
     }
 ])

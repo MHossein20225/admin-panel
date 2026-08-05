@@ -1,58 +1,104 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useState, useEffect } from "react";
 
-export function useDataFilter(data = [], itemsPerPage = 10) {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [sortConfig, setSortConfig] = useState(null);
+export function useDataFilter(
+    data = [],
+    {
+        searchKey,
+        itemsPerPage = 10,
+        initialSort = null,
+    } = {}
+) {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [sortConfig, setSortConfig] = useState(initialSort);
     const [currentPage, setCurrentPage] = useState(1);
 
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [data]);
+
     const filteredData = useMemo(() => {
+        if (!Array.isArray(data)) return [];
+
         if (!searchTerm.trim()) return data;
-        return data.filter(data =>
-            data.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    }, [data, searchTerm]);
+
+        return data.filter((item) => {
+            const value = item?.[searchKey];
+
+            if (value == null) return false;
+
+            return String(value)
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+        });
+    }, [data, searchKey, searchTerm]);
 
     const sortedData = useMemo(() => {
         if (!sortConfig) return filteredData;
+
         return [...filteredData].sort((a, b) => {
-            const aVal = a[sortConfig.key];
-            const bVal = b[sortConfig.key];
-            if (aVal < bVal) return sortConfig.direction === 'asc' ? -1 : 1;
-            if (aVal > bVal) return sortConfig.direction === 'asc' ? 1 : -1;
+            let aVal = a?.[sortConfig.key];
+            let bVal = b?.[sortConfig.key];
+
+            if (typeof aVal === "string")
+                aVal = aVal.toLowerCase();
+            if (typeof bVal === "string")
+                bVal = bVal.toLowerCase();
+            if (aVal < bVal)
+                return sortConfig.direction === "asc" ? -1 : 1;
+            if (aVal > bVal)
+                return sortConfig.direction === "asc" ? 1 : -1;
+
             return 0;
         });
     }, [filteredData, sortConfig]);
 
-    const totalPages = Math.ceil(sortedData.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const paginatedData = sortedData.slice(startIndex, startIndex + itemsPerPage);
+    const totalPages = Math.max(1, Math.ceil(sortedData.length / itemsPerPage));
 
-    const handleSearch = (term) => {
+    const paginatedData = useMemo(() => {
+        const start = (currentPage - 1) * itemsPerPage;
+        return sortedData.slice(start, start + itemsPerPage);
+    }, [sortedData, currentPage, itemsPerPage]);
+
+    function handleSearch(term) {
         setSearchTerm(term);
         setCurrentPage(1);
-    };
+    }
 
-    const handleSort = (key) => {
-        setSortConfig(prev => {
+    function handleSort(key) {
+        setSortConfig((prev) => {
             if (prev?.key === key) {
-                return { key, direction: prev.direction === 'asc' ? 'desc' : 'asc' };
+                return {
+                    key,
+                    direction:
+                        prev.direction === "asc" ? "desc" : "asc",
+                };
             }
-            return { key, direction: 'asc' };
+            return {
+                key,
+                direction: "asc",
+            };
         });
+
         setCurrentPage(1);
-    };
+    }
 
-    const handlePageChange = (page) => {
+    function handlePageChange(page) {
+        if (page < 1 || page > totalPages) return;
         setCurrentPage(page);
-    };
+    }
 
-    const getSortArrow = (key) => {
-        if (sortConfig?.key !== key) return null;
-        return sortConfig.direction === 'asc' ? ' ↑' : ' ↓';
-    };
+    function getSortArrow(key) {
+        if (sortConfig?.key !== key) return "";
+
+        return sortConfig.direction === "asc"
+            ? "↑"
+            : "↓";
+    }
 
     return {
-        paginatedData,
+        data: paginatedData,
+        filteredData,
+        sortedData,
         totalPages,
         currentPage,
         searchTerm,

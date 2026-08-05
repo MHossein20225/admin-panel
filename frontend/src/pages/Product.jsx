@@ -15,7 +15,18 @@ export default function Product() {
     const {data: products = [], isLoading} = useProducts();
     const deleteProduct = useDeleteProduct();
 
-    const {paginatedData, totalPages, currentPage, handleSearch, handleSort, handlePageChange, getSortArrow} = useDataFilter(products, 10);
+    const {
+        data,
+        totalPages,
+        currentPage,
+        handleSearch,
+        handleSort,
+        handlePageChange,
+        getSortArrow,
+    } = useDataFilter(products, {
+        searchKey: "title",
+        itemsPerPage: 10,
+    });
 
     return (
         <div className="flex flex-col items-center w-full h-auto">
@@ -80,7 +91,7 @@ export default function Product() {
                 ) : (
                     <Table
                         columns={PRODUCT_COLUMNS}
-                        values={paginatedData}
+                        values={data}
                         editModal={(product) => (
                             <EditProductForm
                                 id={product.id}

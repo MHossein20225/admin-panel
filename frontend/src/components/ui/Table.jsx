@@ -13,9 +13,6 @@ export default function Table({columns, values, rowRender, editModal}) {
             <table className="w-full">
                 <thead>
                 <tr className="bg-(--bg-secondary) border-b border-(--border-color)">
-                    <th className="text-right p-3 sm:p-4 text-sm font-medium text-(--text-secondary)">
-                        #
-                    </th>
 
                     {columns?.map((column) => (
                         <th

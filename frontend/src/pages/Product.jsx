@@ -8,38 +8,21 @@ import {useDeleteProduct, useProducts} from "../hooks/useProduct.jsx";
 import ProductRow from "../features/products/ProductRow.jsx";
 import {PRODUCT_COLUMNS} from "../data/products.js";
 import Pagination from "../components/ui/Pagination.jsx";
+import {useDataFilter} from "../hooks/useDataFilter.jsx";
 
 export default function Product() {
     const [openAddProductSection, setOpenAddProductSection] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [searchTerm, setSearchTerm] = useState('');
-    const {data: products = [], isLoading} = useProducts()
-    const deleteProduct = useDeleteProduct()
+    const {data: products = [], isLoading} = useProducts();
+    const deleteProduct = useDeleteProduct();
 
-    const itemsPerPage = 10;
-
-    const filteredProducts = products.filter(product =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
-
+    const {paginatedData, totalPages, currentPage, handleSearch, handleSort, handlePageChange, getSortArrow} = useDataFilter(products, 10);
 
     return (
         <div className="flex flex-col items-center w-full h-auto">
-            <div
-                className="bg-(--bg-secondary) w-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row items-start justify-between gap-4 h-32">
+            <div className="bg-(--bg-secondary) w-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row items-start justify-between gap-4 h-32">
                 <div className="w-full md:w-auto">
-                    <p className="text-(--bg) text-xs sm:text-sm">
-                        عملیات فروشگاه / محصولات
-                    </p>
-
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold truncate">
-                        مدیریت محصولات
-                    </h1>
+                    <p className="text-(--bg) text-xs sm:text-sm">عملیات فروشگاه / محصولات</p>
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold truncate">مدیریت محصولات</h1>
                 </div>
 
                 <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
@@ -48,33 +31,18 @@ export default function Product() {
                         aria-label="افزودن محصول"
                         onClick={() => setOpenAddProductSection(true)}
                     >
-                        <AddProductIcon
-                            size={20}
-                            color="white"
-                            strokeWidth={2}
-                        />
-
-                        <span className="text-white text-sm hidden md:block">
-                            افزودن محصول
-                        </span>
+                        <AddProductIcon size={20} color="white" strokeWidth={2} />
+                        <span className="text-white text-sm hidden md:block">افزودن محصول</span>
                     </button>
 
-                    <div
-                        className="flex items-center gap-2 border border-(--border-color) rounded-xl w-full sm:w-48 md:w-56 h-10 px-3 focus-within:border-(--primary) transition-colors duration-200">
-                        <SearchIcon
-                            size={20}
-                            color="#53606F"
-                            strokeWidth={1}
-                        />
-
+                    <div className="flex items-center gap-2 border border-(--border-color) rounded-xl w-full sm:w-48 md:w-56 h-10 px-3 focus-within:border-(--primary) transition-colors duration-200">
+                        <SearchIcon size={20} color="#53606F" strokeWidth={1} />
                         <input
-                            onChange={e => {
-                                setSearchTerm(e.target.value)
-                            }}
+                            onChange={e => handleSearch(e.target.value)}
                             type="text"
                             className="w-full h-full outline-none text-sm bg-transparent"
-                            placeholder="جستجو در سفارش‌ها..."
-                            aria-label="جستجوی سفارش‌ها"
+                            placeholder="جستجو در محصولات..."
+                            aria-label="جستجوی محصولات"
                         />
                     </div>
                 </div>
@@ -86,17 +54,25 @@ export default function Product() {
                 title="افزودن محصول"
                 description="اطلاعات محصول جدید را وارد کنید."
             >
-                <AddProductForm/>
+                <AddProductForm />
             </Modal>
 
             <div className="w-full p-4">
-                <div className="w-32 h-8 border border-(--border-color) rounded-2xl">
-                    <select className="outline-none">
-                        <option>دسته بندی ها</option>
-                    </select>
+                <div className="flex gap-4 w-full h-8 items-center">
+                    <button onClick={() => handleSort('id')}>
+                        بر اساس شناسه{getSortArrow('id')}
+                    </button>
+                    <button onClick={() => handleSort('title')}>
+                        بر اساس نام{getSortArrow('title')}
+                    </button>
+                    <button onClick={() => handleSort('price')}>
+                        بر اساس قیمت{getSortArrow('price')}
+                    </button>
+                    <button onClick={() => handleSort('off')}>
+                        بر اساس تخفیف{getSortArrow('off')}
+                    </button>
                 </div>
             </div>
-
 
             <div className="w-full flex flex-wrap p-4">
                 {isLoading ? (
@@ -104,7 +80,7 @@ export default function Product() {
                 ) : (
                     <Table
                         columns={PRODUCT_COLUMNS}
-                        values={paginatedProducts}
+                        values={paginatedData}
                         editModal={(product) => (
                             <EditProductForm
                                 id={product.id}
@@ -125,7 +101,12 @@ export default function Product() {
                     />
                 )}
             </div>
-            <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+
+            <Pagination
+                currentPage={currentPage}
+                setCurrentPage={handlePageChange}
+                totalPages={totalPages}
+            />
         </div>
     );
 }

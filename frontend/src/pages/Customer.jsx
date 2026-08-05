@@ -8,25 +8,14 @@ import Modal from "../components/ui/Modal.jsx";
 import AddCustomerForm from "../features/customers/AddCustomerForm.jsx";
 import EditCustomerForm from "../features/customers/EditCustomrForm.jsx";
 import Pagination from "../components/ui/Pagination.jsx";
+import {useDataFilter} from "../hooks/useDataFilter.jsx";
 
 export default function Customer() {
-    const [searchTerm, setSearchTerm] = useState('');
     const [openAddCustomerModal, setOpenAddCustomerModal] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
     const {data: customers = [], isLoading} = useCustomers()
     const deleteCustomer = useDeleteCustomer()
 
-    const itemsPerPage = 10;
-
-    const filteredCustomers = customers.filter(customer =>
-        customer.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    const paginatedProducts = filteredCustomers.slice(startIndex, endIndex);
+    const {paginatedData, totalPages, currentPage, handleSearch, handleSort, handlePageChange, getSortArrow} = useDataFilter(customers, 10);
     return (
         <div className="flex flex-col w-full h-auto">
             <div
@@ -54,8 +43,7 @@ export default function Customer() {
                         <SearchIcon size={20} color="#53606F" strokeWidth={1}/>
                         <input
                             type="text"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onChange={(e) => handleSearch(e.target.value)}
                             className="w-full h-full outline-none text-sm bg-transparent placeholder:text-gray-400"
                             placeholder="جستجو..."
                             aria-label="جستجوی مشتریان"
@@ -63,6 +51,7 @@ export default function Customer() {
                     </div>
                 </div>
             </div>
+
 
             <Modal
                 onOpen={openAddCustomerModal}
@@ -73,13 +62,29 @@ export default function Customer() {
                 <AddCustomerForm/>
             </Modal>
 
+            <div className="w-full p-4">
+                <div className="flex gap-4 w-full h-8 items-center">
+                    <button onClick={() => handleSort('id')}>
+                        بر اساس شناسه{getSortArrow('id')}
+                    </button>
+                    <button onClick={() => handleSort('name')}>
+                        بر اساس نام{getSortArrow('name')}
+                    </button>
+                    <button onClick={() => handleSort('logged_at')}>
+                        بر اساس زمان ورود{getSortArrow('logged_at')}
+                    </button>
+                    <button onClick={() => handleSort('status')}>
+                        بر اساس وضعیت{getSortArrow('status')}
+                    </button>
+                </div>
+            </div>
             <div className="w-full flex flex-wrap p-4">
                 {isLoading ? (
                     "در حال بارگذاری ..."
                 ) : (
                     <Table
                         columns={CUSTOMER_COLUMNS}
-                        values={paginatedProducts}
+                        values={paginatedData}
                         editModal={(customer) => (
                             <EditCustomerForm
                                 id={customer.id}
@@ -99,7 +104,11 @@ export default function Customer() {
                     />
                 )}
             </div>
-            <Pagination totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+            <Pagination
+                totalPages={totalPages}
+                setCurrentPage={handlePageChange}
+                currentPage={currentPage}
+            />
         </div>
     );
 }

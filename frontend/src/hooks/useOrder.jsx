@@ -7,6 +7,7 @@ export function useOrders() {
     return useQuery({
         queryKey: ["orders"],
         queryFn: getOrders,
+        retry: false
     });
 }
 

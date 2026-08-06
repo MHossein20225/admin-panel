@@ -8,7 +8,6 @@ export default function EditOrderForm({id, customerName, trackingNumber}) {
     function handelSubmit(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
-        console.log(formData.get("customerName"))
         editOrder.mutate({
             id, order: {
                 customerName: formData.get("customerName"),

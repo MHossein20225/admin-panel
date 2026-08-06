@@ -6,11 +6,12 @@ import {useDeleteOrder, useOrders} from "../hooks/useOrder.jsx";
 import EditOrderForm from "../features/orders/EditOrderForm.jsx";
 import OrderRow from "../features/orders/OrderRow.jsx";
 import {ORDER_COLUMNS} from "../data/order.js";
+import ErrorState from "../components/error/ErrorState.jsx";
 
 
 
 export default function Order() {
-    const {data: orders = [], isLoading} = useOrders();
+    const {data: orders = [], isLoading, isError, error, refetch} = useOrders();
     const deleteOrder = useDeleteOrder();
 
     const {
@@ -25,6 +26,14 @@ export default function Order() {
         searchKey: "trackingNumber",
         itemsPerPage: 10,
     });
+    if (isError) {
+        return (
+            <ErrorState
+                title="خطا در دریافت سفارشات"
+                retry={refetch}
+            />
+        );
+    }
 
     return (
         <div className="flex flex-col items-center w-full h-auto">
